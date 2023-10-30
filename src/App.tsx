@@ -1,5 +1,5 @@
 const App = () => {
-  return <>toto</>;
-}
+  return <>App</>;
+};
 
 export default App;
