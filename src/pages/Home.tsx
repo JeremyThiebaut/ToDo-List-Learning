@@ -1,19 +1,28 @@
-import todoArray from '@/data/data'
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Home() {
-  
-  console.table(todoArray)
+  const dispatch = useDispatch();
+
+  interface State {
+    value: string;
+    name: string;
+  }
+
+  const state = useSelector((state: State) => state);
+
+  const handleClick = () => {
+    dispatch({
+      type: "CHANGE_VALUE",
+      payload: { value: "value", name: "New name" },
+    });
+  };
+
   return (
     <>
-      {todoArray.map((todo:any, index:number) => (
-        <>
-       <div key={index}>
-          <h2>{todo.title}</h2>
-          <p>{todo.description}</p>
-        </div>
-        <br />
-        </>
-      ))}
+      <h1>Redux</h1>
+      <h2>{state.value}</h2>
+      <h2>{state.name}</h2>
+      <button onClick={handleClick}>Change name</button>
     </>
-  )
+  );
 }
