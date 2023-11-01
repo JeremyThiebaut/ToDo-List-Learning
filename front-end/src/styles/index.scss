@@ -1,0 +1,13 @@
+@use "reset";
+
+#root {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  padding: 3rem;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #5c7ae9;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-y: auto;
+}
