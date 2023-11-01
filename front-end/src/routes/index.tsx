@@ -2,6 +2,7 @@ import { useRoutes } from "react-router-dom";
 import Page404 from "@/pages/Page404";
 import LoadingScreen from "@/components/LoadingScreen";
 import React from "react";
+import HomeLayout from "@/layouts/HomeLayout";
 
 const Loadable = (Component: any) => {
   return (props: any) => (
@@ -13,15 +14,15 @@ const Loadable = (Component: any) => {
 
 const Router = () => {
   return useRoutes([
-    // {
-    //   path: "/",
-    //   element: <HomeLayout />,
-    //   children: [{ path: "/", element: <HomeApp /> }],
-    // },
     {
       path: "/",
-      element: <HomeApp />,
+      element: <HomeLayout />,
+      children: [{ path: "/", element: <HomeApp /> }],
     },
+    // {
+    //   path: "/",
+    //   element: <HomeApp />,
+    // },
     {
       path: "*",
       element: <Page404 />,
