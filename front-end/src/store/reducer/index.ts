@@ -5,6 +5,7 @@ export interface StateProps {
     id: string;
     description: string;
   }[];
+  language: string;
 }
 
 interface ActionProps {
@@ -18,6 +19,7 @@ interface ActionProps {
 
 const initialState: StateProps = {
   todo: [],
+  language: "fr",
 };
 
 export default (state = initialState, action: ActionProps) => {
@@ -46,6 +48,13 @@ export default (state = initialState, action: ActionProps) => {
               : todo
           ),
         ],
+      };
+    }
+
+    case actionTypes.CHANGE_LANGUAGE: {
+      return {
+        ...state,
+        language: state.language === "fr" ? "en" : "fr",
       };
     }
 
