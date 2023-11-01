@@ -5,8 +5,10 @@ import { Trash, NotePencil, Check, X } from "phosphor-react";
 import "@/styles/Home.scss";
 import { StateProps } from "@/store/reducer";
 import actionTypes from "@/store/action";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const todo = useSelector((state: StateProps) => state.todo);
   const [editTodoId, setEditTodoId] = React.useState<string>("");
@@ -163,12 +165,8 @@ const Home = () => {
           className={`todo__form ${errorAddMessages ? "error" : ""}`}
           onSubmit={handleSubmit}
         >
-          <input
-            type="text"
-            name="todo"
-            placeholder="Add something to your list"
-          />
-          <button type="submit">Add</button>
+          <input type="text" name="todo" placeholder={t("add_todo")} />
+          <button type="submit">{t("add")}</button>
         </form>
         {errorAddMessages && (
           <div className="todo__error">{errorAddMessages}</div>
