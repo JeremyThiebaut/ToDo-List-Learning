@@ -5,14 +5,17 @@ import { addTodo, deleteTodo, editTodo } from "../redux/Features/TodoTab";
 import { v4 as uuidv4 } from "uuid";
 import { Todo } from "../redux/Features/TodoTab";
 import React from "react";
-import { Form } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Home() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { todos } = useSelector((state: any) => state.todos);
   const [editTodoId, setEditTodoId] = React.useState<string>("");
   const [errorAddMessage, setErrorAddMessage] = React.useState<string>("");
   const [errorEditMessage, setErrorEditMessage] = React.useState<string>("");
+
+  
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -130,10 +133,10 @@ export default function Home() {
           <input
             className="input-add"
             type="text"
-            placeholder="Add a todo"
+            placeholder={t("add_todo")}
             name="todo"
           />
-          <button type="submit">Add</button>
+          <button type="submit">{t("add")}</button>
         </form>
         {errorAddMessage && <div className="error">{errorAddMessage}</div>}
       </div>
