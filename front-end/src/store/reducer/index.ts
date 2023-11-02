@@ -4,6 +4,7 @@ export interface StateProps {
   todo: {
     id: string;
     description: string;
+    isDone: boolean;
   }[];
   language: string;
 }
@@ -44,7 +45,24 @@ export default (state = initialState, action: ActionProps) => {
         todo: [
           ...state.todo.map((todo) =>
             todo.id === action.payload.updateTodo.id
-              ? { ...todo, description: action.payload.updateTodo.description }
+              ? {
+                  ...todo,
+                  description: action.payload.updateTodo.description,
+                  isDone: action.payload.updateTodo.isDone,
+                }
+              : todo
+          ),
+        ],
+      };
+    }
+
+    case actionTypes.TOGGLE_TODO: {
+      return {
+        ...state,
+        todo: [
+          ...state.todo.map((todo) =>
+            todo.id === action.payload.id
+              ? { ...todo, isDone: !todo.isDone }
               : todo
           ),
         ],
