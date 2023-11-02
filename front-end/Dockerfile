@@ -2,19 +2,19 @@
 FROM node:20-alpine
 
 # Créez un répertoire pour votre application
-RUN mkdir -p /usr/src/app/front-end
+RUN mkdir -p /usr/src/app
 
 # Définissez le répertoire de travail pour votre application
-WORKDIR /usr/src/app/front-end
+WORKDIR /usr/src/app
 
 # Copiez les fichiers de votre application dans le conteneur
-COPY .dockerignore ./usr/src/app/front-end/
+COPY .dockerignore ./usr/src/app
 
 # Copiez les fichiers de votre application dans le conteneur
-COPY . /usr/src/app/front-end
+COPY . /usr/src/app
 
 # Copiez le package.json et le package-lock.json de votre application dans le conteneur
-COPY package*.json ./usr/src/app/front-end/
+COPY package*.json ./usr/src/app
 
 # Installez les dépendances de votre application
 RUN npm install
