@@ -28,14 +28,22 @@
       margin-bottom: 1rem;
 
       .todo__description {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         width: 100%;
         background: linear-gradient(90deg, #654fff 0%, #9f55f9 100%);
         border-radius: 5px;
         padding: 1rem;
         font-weight: bold;
         overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+
+        .todo__text {
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
       }
 
       .todo__buttons {
@@ -121,10 +129,6 @@
         font-weight: bold;
         color: #fff;
         outline: none;
-
-        // :focus-visible {
-        //   outline: none;
-        // }
       }
 
       button {
