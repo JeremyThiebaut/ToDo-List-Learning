@@ -39,7 +39,6 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
       description: valeurSaisie,
     };
 
-    console.log("updateTodo", updateTodo);
     dispatch({
       type: actionTypes.UPDATE_TODO,
       payload: {
