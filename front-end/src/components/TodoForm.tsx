@@ -16,7 +16,6 @@ const TodoForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const valeurSaisie = e.currentTarget.todo.value;
-    console.log(valeurSaisie);
     const messageErreur = validateTodo(valeurSaisie);
 
     if (messageErreur) {
@@ -39,7 +38,6 @@ const TodoForm: React.FC = () => {
 
     e.currentTarget.todo.value = "";
     setErrorAddMessages("");
-    console.log("toto", e.currentTarget.todo.value);
   };
 
   return (

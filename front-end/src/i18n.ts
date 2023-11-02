@@ -17,7 +17,6 @@ const resources = {
 const I18n = () => {
   const language = useSelector((state) => state.language);
 
-  console.log(language);
   React.useEffect(() => {
     i18n.use(initReactI18next).init({
       lng: language,
