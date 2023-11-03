@@ -4,13 +4,15 @@ import { useDispatch } from "react-redux";
 import actionTypes from "@/store/action";
 import { Check, NotePencil, Trash, X } from "phosphor-react";
 import ErrorMessage from "@/components/ErrorMessage";
-import { validateTodo } from "@/utils/ValidateTodo";
+import validateTodo from "@/utils/ValidateTodo";
+import { useTranslation } from "react-i18next";
 
 interface TodoItemProps {
   todo: StateProps;
 }
 
 const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [editTodoId, setEditTodoId] = React.useState<string>("");
   const [errorEditMessages, setErrorEditMessages] = React.useState<string>("");
@@ -27,7 +29,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const handleEditTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const valeurSaisie = e.currentTarget.todo.value;
-    const messageErreur = validateTodo(valeurSaisie);
+    const messageErreur = validateTodo(valeurSaisie, t);
 
     if (messageErreur) {
       setErrorEditMessages(messageErreur);
