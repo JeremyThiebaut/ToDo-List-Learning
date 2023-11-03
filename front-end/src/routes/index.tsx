@@ -17,7 +17,13 @@ const Router = () => {
     {
       path: "/",
       element: <HomeLayout />,
-      children: [{ path: "/", element: <HomeApp /> }],
+      children: [
+        { path: "/", element: <HomeApp /> },
+        {
+          path: "*",
+          element: <Page404 />,
+        },
+      ],
     },
     // {
     //   path: "/",
