@@ -4,6 +4,7 @@ import en from "./locales/en/app.json";
 import fr from "./locales/fr/app.json";
 import { useSelector } from "react-redux";
 import React from "react";
+import { StateProps } from "@/store/reducer";
 
 const resources = {
   en: {
@@ -14,15 +15,17 @@ const resources = {
   },
 };
 
+i18n.use(initReactI18next).init({
+  lng: "fr",
+  fallbackLng: "en",
+  resources,
+});
+
 const I18n = () => {
-  const language = useSelector((state) => state.language);
+  const language = useSelector((state: StateProps) => state.language);
 
   React.useEffect(() => {
-    i18n.use(initReactI18next).init({
-      lng: language,
-      fallbackLng: "en",
-      resources,
-    });
+    i18n.changeLanguage(language);
   }, [language]);
 
   return null;
