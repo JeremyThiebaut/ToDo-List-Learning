@@ -1,6 +1,11 @@
-export const validateTodo = (todo: string): string | null => {
-  if (todo.length < 5) {
-    return "Todo must be at least 5 characters long";
+const validateTodo = (
+  todo: string,
+  t: (key: string) => string
+): string | null => {
+  if (todo.length <= 0) {
+    return t("to_short");
   }
   return null;
 };
+
+export default validateTodo;
