@@ -1,24 +1,18 @@
-import { NavLink, Outlet } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { StateProps } from "@/store/reducer";
-import actionTypes from "@/store/action";
+import { Outlet } from "react-router-dom";
+import "@/styles/HomeLayout.scss";
+import Title from "@/components/Title";
+import Language from "../components/Language";
 
 export default function Home() {
-  const dispatch = useDispatch();
-  const language = useSelector((state: StateProps) => state.language);
-
-  const toggleLanguage = () => {
-    dispatch({
-      type: actionTypes.CHANGE_LANGUAGE,
-    });
-  };
-
   return (
     <div className="container">
       <div className="toggleLang">
-        <button onClick={toggleLanguage}>
-          {language === "en" ? "fr" : "en"}
-        </button>
+        <div className="title_app">
+          <Title title="Todo App" />
+        </div>
+        <div className="toggle">
+          <Language />
+        </div>
       </div>
       <Outlet />
     </div>
