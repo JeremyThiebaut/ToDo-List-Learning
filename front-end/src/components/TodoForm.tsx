@@ -5,18 +5,22 @@ import { StateProps } from "@/store/reducer";
 import { useDispatch } from "react-redux";
 import actionTypes from "@/store/action";
 import ErrorMessage from "@/components/ErrorMessage";
-import { validateTodo } from "@/utils/ValidateTodo";
+import validateTodo from "@/utils/ValidateTodo";
+import { Smiley } from "phosphor-react";
+import EmojiPicker from "@/components/EmojiPicker";
 
 const TodoForm: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = React.useState<string>("");
+  const [openPicker, setOpenPicker] = React.useState<boolean>(false);
   const [errorAddMessages, setErrorAddMessages] = React.useState<string>("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setOpenPicker(false);
     const valeurSaisie = e.currentTarget.todo.value;
-    const messageErreur = validateTodo(valeurSaisie);
+    const messageErreur = validateTodo(valeurSaisie, t);
 
     if (messageErreur) {
       setErrorAddMessages(messageErreur);
@@ -36,7 +40,7 @@ const TodoForm: React.FC = () => {
       },
     });
 
-    e.currentTarget.todo.value = "";
+    setInputValue("");
     setErrorAddMessages("");
   };
 
@@ -46,12 +50,26 @@ const TodoForm: React.FC = () => {
         onSubmit={handleSubmit}
         className={`todo__form ${errorAddMessages ? "error" : ""}`}
       >
-        <input
-          type="text"
-          placeholder={t("add_todo")}
-          onChange={(e) => setInputValue(e.target.value)}
-          name="todo"
-        />
+        <div className="input-wrapper">
+          <input
+            type="text"
+            placeholder={t("add_todo")}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            name="todo"
+          />
+          <EmojiPicker
+            onSelect={(emoji: string) =>
+              setInputValue((prevValue) => prevValue + emoji)
+            }
+            openPicker={openPicker}
+          />
+          <Smiley
+            size={24}
+            className="emoji-button"
+            onClick={() => setOpenPicker((emoji) => !emoji)}
+          />
+        </div>
         <button type="submit">{t("add")}</button>
       </form>
       {errorAddMessages && <ErrorMessage message={errorAddMessages} />}
