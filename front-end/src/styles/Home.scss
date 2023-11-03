@@ -117,19 +117,48 @@
 
   .todo__add {
     width: 90%;
+    height: 3rem;
 
     .todo__form {
       display: flex;
+      height: 100%;
 
-      input {
-        border: #654fff 2px solid;
-        border-radius: 3px 0 0 3px;
+      .input-wrapper {
         width: 100%;
-        text-align: center;
-        background: transparent;
-        font-weight: bold;
-        color: #fff;
-        outline: none;
+        position: relative;
+
+        .emoji-picker {
+          display: none;
+          position: absolute;
+          top: 100%;
+          right: 0;
+          z-index: 1;
+          margin-bottom: 3rem;
+        }
+
+        .open {
+          display: inline;
+        }
+
+        .emoji-button {
+          position: absolute;
+          height: 100%;
+          right: 1rem;
+          color: #654fff;
+        }
+
+        input {
+          border: #654fff 2px solid;
+          border-radius: 3px 0 0 3px;
+          width: 100%;
+          text-align: center;
+          background: transparent;
+          font-weight: bold;
+          color: #fff;
+          outline: none;
+          padding-right: 3rem;
+          height: 100%;
+        }
       }
 
       button {
