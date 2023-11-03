@@ -1,9 +1,6 @@
-const validateTodo = (
-  todo: string,
-  t: (key: string) => string
-): string | null => {
+const validateTodo = (todo: string, text: string): string | null => {
   if (todo.length <= 0) {
-    return t("to_short");
+    return text;
   }
   return null;
 };

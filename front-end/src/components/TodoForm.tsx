@@ -20,7 +20,7 @@ const TodoForm: React.FC = () => {
     e.preventDefault();
     setOpenPicker(false);
     const valeurSaisie = e.currentTarget.todo.value;
-    const messageErreur = validateTodo(valeurSaisie, t);
+    const messageErreur = validateTodo(valeurSaisie, t("to_short"));
 
     if (messageErreur) {
       setErrorAddMessages(messageErreur);

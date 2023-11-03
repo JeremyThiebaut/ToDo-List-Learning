@@ -29,7 +29,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const handleEditTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const valeurSaisie = e.currentTarget.todo.value;
-    const messageErreur = validateTodo(valeurSaisie, t);
+    const messageErreur = validateTodo(valeurSaisie, t("to_short"));
 
     if (messageErreur) {
       setErrorEditMessages(messageErreur);
