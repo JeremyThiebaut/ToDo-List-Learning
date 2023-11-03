@@ -1,5 +1,6 @@
 {
   "add_todo": "Ajouter quelque chose à votre liste",
   "add": "Ajouter",
-  "change_language": "Changer la langue en Anglais"
+  "change_language": "Changer la langue en Anglais",
+  "to_short": "Trop court"
 }
