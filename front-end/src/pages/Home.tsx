@@ -9,20 +9,14 @@ const Home = () => {
 
   return (
     <div className="home">
-      <h1 className="title">ToDo List</h1>
-      <div className="todo">
-        {todo.length > 0 ? (
-          todo?.map((todo: StateProps) => (
+      {todo.length > 0 && (
+        <div className="todo">
+          {todo?.map((todo: StateProps) => (
             <TodoItem key={todo.id} todo={todo} />
-          ))
-        ) : (
-          <div className="todo__list">
-            <div className="todo__description">No todos</div>
-          </div>
-        )}
-      </div>
-
-      <div className="todo__add">
+          ))}
+        </div>
+      )}
+      <div className={`todo__add ${todo.length > 0 && "space"}`}>
         <TodoForm />
       </div>
     </div>
