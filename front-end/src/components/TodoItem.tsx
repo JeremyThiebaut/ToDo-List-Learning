@@ -87,7 +87,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         </div>
       ) : (
         <>
-          <div className="todo__description">
+          <div className={`todo__description ${todo.isDone && "done"}`}>
             <div className="todo__text">{todo.description}</div>
             <input
               type="checkbox"
