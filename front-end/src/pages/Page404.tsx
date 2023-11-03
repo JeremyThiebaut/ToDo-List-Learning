@@ -1,6 +1,7 @@
+import "@/styles/Page404.scss";
 
-export default function Page404() {
-  return (
-    <div>Page404</div>
-  )
-}
+const Page404 = () => {
+  return <div className="page404">Page404</div>;
+};
+
+export default Page404;
