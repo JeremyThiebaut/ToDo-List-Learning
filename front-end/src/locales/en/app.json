@@ -1,5 +1,6 @@
 {
   "add_todo": "Add something to your list",
   "add": "Add",
-  "change_language": "Change language to French"
+  "change_language": "Change language to French",
+  "to_short": "Too short"
 }
