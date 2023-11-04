@@ -116,7 +116,7 @@ export const getUser = async (req: any, res: any) => {
 export const updateUser = async (req: any, res: any) => {
   logger.info(`${req.method} - ${req.originalUrl} - updating a user`);
   database.query(
-    QUERY.UPDATE_USER,
+    QUERY.SELECT_USER,
     [req.params.id],
     (err: any, results: any) => {
       if (!results[0]) {
