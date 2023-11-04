@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS `todosdb`
+CREATE DATABASE IF NOT EXISTS `todosdb`;
 
 USE `todosdb`;
 
@@ -19,5 +19,5 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  CONSTRAINT `users_email_unique` UNIQUE (`email`),
+  CONSTRAINT `users_email_unique` UNIQUE (`email`)
 );
