@@ -6,7 +6,7 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: unless-stopped
     volumes:
-      - ./dbinit/init.sql:/docker-entrypoint-initdb.d/0_init.sql
+      - ./back-end/dbinit/init.sql:/docker-entrypoint-initdb.d/0_init.sql
       - c:\data/apiTodo:/var/lib/mysql
     ports:
       - "4306:3306"
