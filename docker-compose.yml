@@ -1,11 +1,75 @@
 version: "1"
 services:
+  mysqldb:
+    image: mysql:8.0
+    container_name: mysqldbcontainer
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    volumes:
+      - ./dbinit/init.sql:/docker-entrypoint-initdb.d/0_init.sql
+      - c:\data/apiTodo:/var/lib/mysql
+    ports:
+      - "4306:3306"
+    expose:
+      - "3306"
+    environment:
+      MYSQL_DATABASE: todosdb
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysqldb
+    networks:
+      - app-network
+
+  back-end:
+    container_name: backendcontainer
+    build: ./back-end
+    image: nodeapp:v1
+    volumes:
+      - c:\data/nodeapp:/code
+    ports:
+      - "3000:3000"
+    expose:
+      - "3000"
+    environment:
+      DB_HOST: mysqldb
+      DB_PORT: 3306
+      DB_USER: admin
+      DB_PASSWORD: root
+      DB_DATABASE: todosdb
+      DB_CONNECTION_LIMIT: 20
+      SERVICE_TAGS: dev
+      SERVICE_NAME: nodeappservice
+      PORT: 3000
+    depends_on:
+      - mysqldb
+    networks:
+      - app-network
+
+  adminer:
+    image: adminer
+    container_name: adminercontainer
+    restart: unless-stopped
+    depends_on:
+      - mysqldb
+    ports:
+      - "8085:8080"
+
   frontend:
-    build:
-      context: ./front-end
-      dockerfile: Dockerfile
+    container_name: frontendcontainer
+    build: ./front-end
+    image: reactapp:v1
     volumes:
       - ./front-end:/usr/src/app
       - /usr/src/app/node_modules
     ports:
       - "5173:5173"
+    expose:
+      - "5173"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
