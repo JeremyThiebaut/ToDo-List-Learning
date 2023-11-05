@@ -5,7 +5,7 @@ import TodoForm from "@/components/TodoForm";
 import TodoItem from "@/components/TodoItem";
 
 const Home = () => {
-  const todo = useSelector((state: StateProps) => state.todo);
+  const { todo } = useSelector((state: StateProps) => state.Reducer);
 
   return (
     <div className="home">

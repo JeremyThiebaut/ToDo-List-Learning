@@ -22,7 +22,7 @@ i18n.use(initReactI18next).init({
 });
 
 const I18n = () => {
-  const language = useSelector((state: StateProps) => state.language);
+  const { language } = useSelector((state: StateProps) => state.Reducer);
 
   React.useEffect(() => {
     i18n.changeLanguage(language);

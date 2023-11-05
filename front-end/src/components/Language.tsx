@@ -1,15 +1,13 @@
 import { useDispatch } from "react-redux";
-import actionTypes from "@/store/action";
 import { useTranslation } from "react-i18next";
+import { changeLanguage } from "../store/reducer";
 
 const Language = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const toggleLanguage = () => {
-    dispatch({
-      type: actionTypes.CHANGE_LANGUAGE,
-    });
+    dispatch(changeLanguage());
   };
   return <div onClick={toggleLanguage}>{t("change_language")}</div>;
 };

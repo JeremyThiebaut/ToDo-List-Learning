@@ -1,13 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { v4 as uuidv4 } from "uuid";
-import { StateProps } from "@/store/reducer";
 import { useDispatch } from "react-redux";
-import actionTypes from "@/store/action";
 import ErrorMessage from "@/components/ErrorMessage";
 import validateTodo from "@/utils/ValidateTodo";
 import { Smiley } from "phosphor-react";
 import EmojiPicker from "@/components/EmojiPicker";
+import { addTodo } from "@/store/reducer";
 
 const TodoForm: React.FC = () => {
   const { t } = useTranslation();
@@ -27,18 +26,13 @@ const TodoForm: React.FC = () => {
       return;
     }
 
-    const newTodo: StateProps = {
-      id: uuidv4(),
-      description: valeurSaisie,
-      isDone: false,
-    };
-
-    dispatch({
-      type: actionTypes.ADD_TODO,
-      payload: {
-        newTodo,
-      },
-    });
+    dispatch(
+      addTodo({
+        id: uuidv4(),
+        description: valeurSaisie,
+        isDone: false,
+      })
+    );
 
     setInputValue("");
     setErrorAddMessages("");
