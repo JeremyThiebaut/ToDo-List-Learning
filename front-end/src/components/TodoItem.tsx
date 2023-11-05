@@ -1,11 +1,11 @@
 import React from "react";
 import { StateProps } from "@/store/reducer";
 import { useDispatch } from "react-redux";
-import actionTypes from "@/store/action";
 import { Check, NotePencil, Trash, X } from "phosphor-react";
 import ErrorMessage from "@/components/ErrorMessage";
 import validateTodo from "@/utils/ValidateTodo";
 import { useTranslation } from "react-i18next";
+import { updateTodo, removeTodo, toggleTodo } from "../store/reducer";
 
 interface TodoItemProps {
   todo: StateProps;
@@ -36,29 +36,23 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
       return;
     }
 
-    const updateTodo: StateProps = {
-      id: todo.id,
-      description: valeurSaisie,
-    };
-
-    dispatch({
-      type: actionTypes.UPDATE_TODO,
-      payload: {
-        updateTodo,
-      },
-    });
+    dispatch(
+      updateTodo({
+        id: todo.id,
+        description: valeurSaisie,
+      })
+    );
 
     stopEditTodo();
     setErrorEditMessages("");
   };
 
-  const removeTodo = (id: string) => {
-    dispatch({
-      type: actionTypes.REMOVE_TODO,
-      payload: {
+  const remove = (id: string) => {
+    dispatch(
+      removeTodo({
         id,
-      },
-    });
+      })
+    );
   };
 
   return (
@@ -94,18 +88,17 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
             <input
               type="checkbox"
               onChange={() => {
-                dispatch({
-                  type: actionTypes.TOGGLE_TODO,
-                  payload: {
+                dispatch(
+                  toggleTodo({
                     id: todo.id,
-                  },
-                });
+                  })
+                );
               }}
               className="todo__checkbox"
             />
           </div>
           <div className="todo__buttons">
-            <div className="todo__delete" onClick={() => removeTodo(todo.id)}>
+            <div className="todo__delete" onClick={() => remove(todo.id)}>
               <Trash />
             </div>
             <div className="todo__edit" onClick={() => editTodo(todo.id)}>
