@@ -13,11 +13,11 @@ services:
     expose:
       - "3306"
     environment:
-      MYSQL_DATABASE: todosdb
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: root
-      MYSQL_ROOT_PASSWORD: root
-      SERVICE_TAGS: dev
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      SERVICE_TAGS: ${SERVICE_TAGS}
       SERVICE_NAME: mysqldb
     networks:
       - app-network
@@ -33,15 +33,15 @@ services:
     expose:
       - "3000"
     environment:
-      DB_HOST: mysqldb
-      DB_PORT: 3306
-      DB_USER: admin
-      DB_PASSWORD: root
-      DB_DATABASE: todosdb
-      DB_CONNECTION_LIMIT: 20
-      SERVICE_TAGS: dev
+      DB_HOST: ${MYSQL_HOST}
+      DB_PORT: ${MYSQL_PORT}
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+      DB_DATABASE: ${MYSQL_DATABASE}
+      DB_CONNECTION_LIMIT: ${MYSQL_CONNECTION_LIMIT}
+      SERVICE_TAGS: ${SERVICE_TAGS}
       SERVICE_NAME: nodeappservice
-      PORT: 3000
+      PORT: ${APP_PORT}
     depends_on:
       - mysqldb
     networks:
