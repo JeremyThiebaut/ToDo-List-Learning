@@ -5,6 +5,7 @@ import Title from "@/components/Title";
 import Language from "../components/Language";
 import { useDispatch } from "react-redux";
 import fetchAllUser from "@/store/actions/action";
+import UserMenu from "../components/UserMenu";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -15,12 +16,13 @@ export default function Home() {
 
   return (
     <div className="container">
-      <div className="toggleLang">
+      <div className="navbar">
         <div className="title_app">
           <Title title="Todo App" />
         </div>
-        <div className="toggle">
+        <div className="menu__right">
           <Language />
+          <UserMenu />
         </div>
       </div>
       <Outlet />
