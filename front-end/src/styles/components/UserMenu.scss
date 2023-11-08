@@ -10,6 +10,8 @@
 
   .dropdownMenu {
     position: absolute;
+    display: flex;
+    flex-direction: column;
     background: rgba(0, 0, 0, 0.8);
     top: 4rem;
     margin-right: -1rem;
@@ -22,12 +24,19 @@
     .dropdown__item {
       background: linear-gradient(90deg, #654fff 0%, #9f55f9 100%);
       margin: 1rem;
+      margin-bottom: 0;
       padding: 0.5rem 1rem;
       border-radius: 5px;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
     }
 
     :first-child {
       margin-top: 0;
+    }
+    :last-child {
+      margin-bottom: 1rem;
     }
   }
 
