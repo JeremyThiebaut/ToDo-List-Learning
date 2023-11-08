@@ -11,8 +11,8 @@ const Language = () => {
     dispatch(changeLanguage());
   };
   return (
-    <div className="toggle">
-      <div onClick={toggleLanguage}>{t("change_language")}</div>
+    <div className="toggle" onClick={toggleLanguage}>
+      {t("change_language")}
     </div>
   );
 };
