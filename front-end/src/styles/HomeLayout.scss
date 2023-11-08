@@ -1,4 +1,4 @@
-.toggleLang {
+.navbar {
   position: fixed;
   top: 0;
   left: 0;
@@ -9,20 +9,9 @@
   align-items: center;
   justify-content: space-between;
 
-  .title {
-    color: #fff;
-    font-weight: bold;
-    margin-left: 4rem;
-  }
-
-  .toggle {
-    margin-right: 4rem;
-    background: linear-gradient(90deg, #654fff 0%, #9f55f9 100%);
-    border: none;
-    border-radius: 3px;
-    color: #fff;
-    font-weight: bold;
-    font-size: 0.7rem;
-    padding: 0.5rem 1rem;
+  .menu__right {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
   }
 }
