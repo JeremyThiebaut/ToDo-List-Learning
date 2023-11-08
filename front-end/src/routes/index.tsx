@@ -2,7 +2,7 @@ import { useRoutes } from "react-router-dom";
 import Page404 from "@/pages/Page404";
 import LoadingScreen from "@/components/LoadingScreen";
 import React from "react";
-import HomeLayout from "@/layouts/HomeLayout";
+import Layout from "@/layouts";
 
 const Loadable = (Component: any) => {
   return (props: any) => (
@@ -16,9 +16,10 @@ const Router = () => {
   return useRoutes([
     {
       path: "/",
-      element: <HomeLayout />,
+      element: <Layout />,
       children: [
         { path: "/", element: <HomeApp /> },
+        { path: "/login", element: <LoginApp /> },
         {
           path: "*",
           element: <Page404 />,
@@ -36,6 +37,7 @@ const Router = () => {
   ]);
 };
 
-const HomeApp = Loadable(React.lazy(() => import("@/pages/Home")));
+const HomeApp = Loadable(React.lazy(() => import("@/pages/HomePage")));
+const LoginApp = Loadable(React.lazy(() => import("@/pages/LoginPage")));
 
 export default Router;
