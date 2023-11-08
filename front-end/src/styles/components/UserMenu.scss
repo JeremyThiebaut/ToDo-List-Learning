@@ -1,0 +1,37 @@
+.menu__user {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  margin: 0 1rem;
+  height: 4rem;
+  color: #fff;
+
+  .dropdownMenu {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    top: 4rem;
+    margin-right: -1rem;
+    right: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    border-radius: 0 0 10px 10px;
+
+    .dropdown__item {
+      background: linear-gradient(90deg, #654fff 0%, #9f55f9 100%);
+      margin: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+
+    :first-child {
+      margin-top: 0;
+    }
+  }
+
+  .open {
+    max-height: 500px;
+  }
+}
