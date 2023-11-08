@@ -8,7 +8,7 @@ import userRoutes from "./route/user.route";
 import logger from "./util/logger";
 
 dotenv.config();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.APP_PORT || 5000;
 const app = express();
 app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
