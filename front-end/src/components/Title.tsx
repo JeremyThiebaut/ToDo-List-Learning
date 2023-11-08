@@ -1,3 +1,5 @@
+import "@/styles/components/Title.scss";
+
 interface TitleProps {
   title: string;
 }
