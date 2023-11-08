@@ -113,6 +113,42 @@ export const getUser = async (req: any, res: any) => {
   );
 };
 
+export const loginUser = async (req: any, res: any) => {
+  console.log(req.body);
+  logger.info(
+    `${req.method} - ${req.originalUrl} - fetching a user by email and password`
+  );
+  database.query(
+    QUERY.SELECT_USER_BY_EMAIL_AND_PASSWORD,
+    [req.body.email, req.body.password],
+    (err: any, results: any) => {
+      if (!results[0]) {
+        res
+          .status(httpStatus.NOT_FOUND.code)
+          .send(
+            new Response(
+              httpStatus.NOT_FOUND.code,
+              httpStatus.NOT_FOUND.status,
+              `User by email ${req.body.email} and password ${req.body.password} not found`,
+              null
+            )
+          );
+      } else {
+        res
+          .status(httpStatus.OK.code)
+          .send(
+            new Response(
+              httpStatus.OK.code,
+              httpStatus.OK.status,
+              "Users fetched successfully",
+              results[0]
+            )
+          );
+      }
+    }
+  );
+};
+
 export const updateUser = async (req: any, res: any) => {
   logger.info(`${req.method} - ${req.originalUrl} - updating a user`);
   database.query(
