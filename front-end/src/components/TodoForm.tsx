@@ -18,8 +18,7 @@ const TodoForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setOpenPicker(false);
-    const valeurSaisie = e.currentTarget.todo.value;
-    const messageErreur = validateTodo(valeurSaisie, t("to_short"));
+    const messageErreur = validateTodo(inputValue, t("to_short"));
 
     if (messageErreur) {
       setErrorAddMessages(messageErreur);
@@ -29,7 +28,7 @@ const TodoForm: React.FC = () => {
     dispatch(
       addTodo({
         id: uuidv4(),
-        description: valeurSaisie,
+        description: inputValue,
         isDone: false,
       })
     );
