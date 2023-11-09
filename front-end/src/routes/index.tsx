@@ -20,6 +20,7 @@ const Router = () => {
       children: [
         { path: "/", element: <HomeApp /> },
         { path: "/login", element: <LoginApp /> },
+        { path: "/register", element: <RegisterApp /> },
         {
           path: "*",
           element: <Page404 />,
@@ -39,5 +40,6 @@ const Router = () => {
 
 const HomeApp = Loadable(React.lazy(() => import("@/pages/HomePage")));
 const LoginApp = Loadable(React.lazy(() => import("@/pages/LoginPage")));
+const RegisterApp = Loadable(React.lazy(() => import("@/pages/RegisterPage")));
 
 export default Router;
