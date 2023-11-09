@@ -2,7 +2,7 @@ import mysql from "mysql";
 import dotenv from "dotenv";
 
 dotenv.config();
-const pool = mysql.createPool({
+const db = mysql.createPool({
   host: String(process.env.DB_HOST),
   port: Number(process.env.DB_PORT),
   user: String(process.env.DB_USER),
@@ -11,4 +11,4 @@ const pool = mysql.createPool({
   connectionLimit: Number(process.env.DB_CONNECTION_LIMIT),
 });
 
-export default pool;
+export default db;
