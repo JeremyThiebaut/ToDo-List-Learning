@@ -12,109 +12,34 @@ const httpStatus = {
   INTERNAL_SERVER_ERROR: { code: 500, status: "INTERNAL SERVER ERROR" },
 };
 
-export const getUsers = async (req: any, res: any) => {
-  logger.info(`${req.method} - ${req.originalUrl} - fetching all users`);
-  database.query(QUERY.SELECT_USERS, (err: any, results: any) => {
-    if (!results) {
-      res
-        .status(httpStatus.OK.code)
-        .send(
-          new Response(
-            httpStatus.OK.code,
-            httpStatus.OK.status,
-            "No users found",
-            null
-          )
-        );
-    } else {
-      res
-        .status(httpStatus.OK.code)
-        .send(
-          new Response(
-            httpStatus.OK.code,
-            httpStatus.OK.status,
-            "Users fetched successfully",
-            { users: results }
-          )
-        );
-    }
-  });
-};
-
-export const createUser = async (req: any, res: any) => {
-  logger.info(`${req.method} - ${req.originalUrl} - creating a user`);
-  database.query(
-    QUERY.CREATE_USER,
-    Object.values(req.body),
-    (err: any, results: any) => {
-      if (!results) {
-        logger.error(err.message);
-        res
-          .status(httpStatus.INTERNAL_SERVER_ERROR.code)
-          .send(
-            new Response(
-              httpStatus.INTERNAL_SERVER_ERROR.code,
-              httpStatus.INTERNAL_SERVER_ERROR.status,
-              "User creation failed",
-              null
-            )
-          );
-      } else {
-        const user = {
-          id: results.insertId,
-          ...req.body,
-          created_at: new Date(),
-        };
-        res
-          .status(httpStatus.CREATED.code)
-          .send(
-            new Response(
-              httpStatus.CREATED.code,
-              httpStatus.CREATED.status,
-              "User created successfully",
-              { user }
-            )
-          );
-      }
-    }
-  );
-};
-
-export const getUser = async (req: any, res: any) => {
+export const getUserLogged = async (req: any, res: any) => {
   logger.info(`${req.method} - ${req.originalUrl} - fetching a user`);
-  database.query(
-    QUERY.SELECT_USER,
-    [req.params.id],
-    (err: any, results: any) => {
-      if (!results[0]) {
-        res
-          .status(httpStatus.NOT_FOUND.code)
-          .send(
-            new Response(
-              httpStatus.NOT_FOUND.code,
-              httpStatus.NOT_FOUND.status,
-              `User by id ${req.params.id} not found`,
-              null
-            )
-          );
-      } else {
-        res
-          .status(httpStatus.OK.code)
-          .send(
-            new Response(
-              httpStatus.OK.code,
-              httpStatus.OK.status,
-              "Users fetched successfully",
-              results[0]
-            )
-          );
-      }
-    }
-  );
+  if (!req.session.user) {
+    res
+      .status(httpStatus.NOT_FOUND.code)
+      .send(
+        new Response(
+          httpStatus.NOT_FOUND.code,
+          httpStatus.NOT_FOUND.status,
+          `User not found`,
+          null
+        )
+      );
+  } else {
+    res
+      .status(httpStatus.OK.code)
+      .send(
+        new Response(
+          httpStatus.OK.code,
+          httpStatus.OK.status,
+          "Users fetched successfully",
+          req.session.user
+        )
+      );
+  }
 };
 
 export const loginUser = async (req: any, res: any) => {
-  console.log(req.body);
   logger.info(
     `${req.method} - ${req.originalUrl} - fetching a user by email and password`
   );
@@ -129,11 +54,12 @@ export const loginUser = async (req: any, res: any) => {
             new Response(
               httpStatus.NOT_FOUND.code,
               httpStatus.NOT_FOUND.status,
-              `User by email ${req.body.email} and password ${req.body.password} not found`,
+              `User by email ${req.body.email} not found`,
               null
             )
           );
       } else {
+        req.session.user = results[0];
         res
           .status(httpStatus.OK.code)
           .send(
@@ -141,7 +67,7 @@ export const loginUser = async (req: any, res: any) => {
               httpStatus.OK.code,
               httpStatus.OK.status,
               "Users fetched successfully",
-              results[0]
+              req.session.user
             )
           );
       }
@@ -149,88 +75,41 @@ export const loginUser = async (req: any, res: any) => {
   );
 };
 
-export const updateUser = async (req: any, res: any) => {
-  logger.info(`${req.method} - ${req.originalUrl} - updating a user`);
-  database.query(
-    QUERY.SELECT_USER,
-    [req.params.id],
-    (err: any, results: any) => {
-      if (!results[0]) {
-        res
-          .status(httpStatus.NOT_FOUND.code)
-          .send(
-            new Response(
-              httpStatus.NOT_FOUND.code,
-              httpStatus.NOT_FOUND.status,
-              `User by id ${req.params.id} not found`,
-              null
-            )
-          );
-      } else {
-        logger.info(`${req.method} - ${req.originalUrl} - updating a user`);
-        database.query(
-          QUERY.UPDATE_USER,
-          [...Object.values(req.body), req.params.id],
-          (err: any, results: any) => {
-            if (!err) {
-              res
-                .status(httpStatus.OK.code)
-                .send(
-                  new Response(
-                    httpStatus.OK.code,
-                    httpStatus.OK.status,
-                    `User by id ${req.params.id} updated successfully`,
-                    { id: req.params.id, ...req.body }
-                  )
-                );
-            } else {
-              logger.error(err.message);
-              res
-                .status(httpStatus.INTERNAL_SERVER_ERROR.code)
-                .send(
-                  new Response(
-                    httpStatus.INTERNAL_SERVER_ERROR.code,
-                    httpStatus.INTERNAL_SERVER_ERROR.status,
-                    "User updation failed",
-                    null
-                  )
-                );
-            }
-          }
-        );
-      }
-    }
-  );
+export const logoutUser = async (req: any, res: any) => {
+  logger.info(`${req.method} - ${req.originalUrl} - logout user`);
+  req.session.user = null;
+  res
+    .status(httpStatus.OK.code)
+    .send(
+      new Response(
+        httpStatus.OK.code,
+        httpStatus.OK.status,
+        "User logout successfully",
+        null
+      )
+    );
 };
 
-export const deleteUser = async (req: any, res: any) => {
-  logger.info(`${req.method} - ${req.originalUrl} - deleting a user`);
+export const registerUser = async (req: any, res: any) => {
+  logger.info(`${req.method} - ${req.originalUrl} - create a user`);
   database.query(
-    QUERY.DELETE_USER,
-    [req.params.id],
+    QUERY.INSERT_USER,
+    [req.body.username, req.body.email, req.body.password],
     (err: any, results: any) => {
-      if (results.affectedRows > 0) {
+      if (err) {
         res
-          .status(httpStatus.OK.code)
+          .status(httpStatus.BAD_REQUEST.code)
           .send(
             new Response(
-              httpStatus.OK.code,
-              httpStatus.OK.status,
-              `User by id ${req.params.id} deleted successfully`,
-              results[0]
-            )
-          );
-      } else {
-        res
-          .status(httpStatus.NOT_FOUND.code)
-          .send(
-            new Response(
-              httpStatus.NOT_FOUND.code,
-              httpStatus.NOT_FOUND.status,
-              `User by id ${req.params.id} not found`,
+              httpStatus.BAD_REQUEST.code,
+              httpStatus.BAD_REQUEST.status,
+              err,
               null
             )
           );
+      } else {
+        res.status(httpStatus.CREATED.code);
+        loginUser(req, res);
       }
     }
   );

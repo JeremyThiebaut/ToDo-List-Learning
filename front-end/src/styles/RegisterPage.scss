@@ -1,4 +1,4 @@
-.login-page {
+.register-page {
   background-color: #232a45;
   min-height: fit-content;
   width: 100%;
@@ -10,7 +10,7 @@
   align-items: center;
   margin-top: 4rem;
 
-  .login-title {
+  .register-title {
     color: #fff;
     font-size: 2rem;
     font-weight: bold;
@@ -18,7 +18,7 @@
     margin-bottom: 2rem;
   }
 
-  .login-form {
+  .register-form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -70,7 +70,7 @@
       text-align: center;
     }
 
-    .login-submit {
+    .register-submit {
       width: 10rem;
       height: 2rem;
       background: linear-gradient(90deg, #654fff 0%, #9f55f9 100%);

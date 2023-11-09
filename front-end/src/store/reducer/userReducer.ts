@@ -22,37 +22,11 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    getUser: (state) => {
-      state.loading = true;
-    },
-    getUserSuccess: (state, action) => {
-      state.user = action.payload.user.data.users[0];
-      state.loading = false;
-      state.error = "";
-    },
-    getUserError: (state, action) => {
-      state.user = [];
-      state.error = action.payload.error;
-      state.loading = false;
-    },
-    getAllUsers: (state) => {
-      state.loading = true;
-    },
-    getAllUsersSuccess: (state, action) => {
-      state.user = action.payload.data.users;
-      state.loading = false;
-      state.error = "";
-    },
-    getAllUsersError: (state, action) => {
-      state.user = [];
-      state.error = action.payload.error;
-      state.loading = false;
-    },
     login: (state) => {
       state.loading = true;
     },
     loginSuccess: (state, action) => {
-      state.user = action.payload.data.data;
+      state.user = action.payload.data;
       state.loading = false;
       state.isLogged = true;
       state.error = "";
@@ -62,18 +36,50 @@ const userSlice = createSlice({
       state.error = action.payload.message;
       state.loading = false;
     },
+    loginAuthError: (state) => {
+      state.user = [];
+      state.loading = false;
+    },
+    logout: (state) => {
+      state.loading = true;
+    },
+    logoutSuccess: (state) => {
+      state.user = [];
+      state.loading = false;
+      state.isLogged = false;
+      state.error = "";
+    },
+    logoutError: (state, action) => {
+      state.error = action.payload.message;
+      state.loading = false;
+    },
+    register: (state) => {
+      state.loading = true;
+    },
+    registerSuccess: (state, action) => {
+      state.user = action.payload.data;
+      state.loading = false;
+      state.isLogged = true;
+      state.error = "";
+    },
+    registerError: (state, action) => {
+      state.user = [];
+      state.error = action.payload.message;
+      state.loading = false;
+    },
   },
 });
 
 export const {
-  getUser,
-  getUserSuccess,
-  getUserError,
-  getAllUsers,
-  getAllUsersSuccess,
-  getAllUsersError,
   login,
   loginSuccess,
   loginError,
+  loginAuthError,
+  logout,
+  logoutSuccess,
+  logoutError,
+  register,
+  registerSuccess,
+  registerError,
 } = userSlice.actions;
 export default userSlice.reducer;

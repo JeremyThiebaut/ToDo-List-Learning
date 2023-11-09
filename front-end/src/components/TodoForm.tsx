@@ -37,6 +37,20 @@ const TodoForm: React.FC = () => {
     setErrorAddMessages("");
   };
 
+  const handleClickOutside = (e: MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest(".todo__form")) {
+      setErrorAddMessages("");
+    }
+  };
+
+  React.useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <form
