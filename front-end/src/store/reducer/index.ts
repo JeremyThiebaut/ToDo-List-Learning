@@ -19,7 +19,6 @@ const todoSlice = createSlice({
   initialState,
   reducers: {
     addTodo: (state, action) => {
-      console.log(action.payload.newTodo);
       state.todo = [...state.todo, action.payload];
     },
     removeTodo: (state, action) => {
