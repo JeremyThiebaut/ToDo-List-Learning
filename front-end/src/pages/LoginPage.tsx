@@ -13,7 +13,7 @@ interface Props {
 const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLogged, error } = useSelector(
+  const { isLogged, loginError } = useSelector(
     (state: StateProps) => state.UserReducer
   );
   const [errorMessages, setErrorMessages] = React.useState<Props>({
@@ -54,6 +54,10 @@ const LoginPage = () => {
       password: passwordError,
     });
 
+    if (emailError || passwordError) {
+      return;
+    }
+
     dispatch(fetchLogin(...Object.values(values)));
   };
 
@@ -61,7 +65,7 @@ const LoginPage = () => {
     <div className="login-page">
       <h2 className="login-title">Login</h2>
       <form className="login-form" onSubmit={handleSubmit}>
-        {error && (
+        {loginError && (
           <div className="input-error">Email ou mot de passe incorrect</div>
         )}
         <div className="form__items">
