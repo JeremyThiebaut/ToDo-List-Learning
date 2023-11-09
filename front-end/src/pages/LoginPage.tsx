@@ -5,16 +5,26 @@ import "@/styles/LoginPage.scss";
 import { useNavigate } from "react-router-dom";
 import { fetchLogin } from "@/store/actions/action";
 
+interface Props {
+  email: string;
+  password: string;
+}
+
 const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLogged, error } = useSelector(
     (state: StateProps) => state.UserReducer
   );
-  const [errorAddMessages, setErrorAddMessages] = React.useState<any>({});
-  const [username, setUsername] = React.useState<string>("");
-  const [email, setEmail] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
+  const [errorMessages, setErrorMessages] = React.useState<Props>({
+    email: "",
+    password: "",
+  });
+
+  const [values, setValues] = React.useState<Props>({
+    email: "",
+    password: "",
+  });
 
   React.useEffect(() => {
     if (isLogged) {
@@ -29,94 +39,73 @@ const LoginPage = () => {
     return "";
   };
 
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const usernameError = validateField("username", username);
-    const emailError = validateField("email", email);
-    const passwordError = validateField("password", password);
+    const emailError = validateField("email", values.email);
+    const passwordError = validateField("password", values.password);
 
-    setErrorAddMessages({
-      username: usernameError,
+    setErrorMessages({
       email: emailError,
       password: passwordError,
     });
 
-    if (usernameError || emailError || passwordError) {
-      return;
-    }
-
-    dispatch(fetchLogin(username, email, password));
+    dispatch(fetchLogin(...Object.values(values)));
   };
 
   return (
     <div className="login-page">
+      <h2 className="login-title">Login</h2>
       <form className="login-form" onSubmit={handleSubmit}>
-        <div className="form__items">
-          {error && <div className="input-error">{error}</div>}
-          <div
-            className={`form__items-container ${
-              errorAddMessages.username && "error"
-            }`}
-          >
-            <label className="title-form" htmlFor="username">
-              Username
-            </label>
-            <input
-              onChange={(e) => setUsername(e.target.value)}
-              type="text"
-              name="username"
-              value={username}
-              id="username"
-              placeholder="Ajouter un nom d'utilisateur"
-            />
-          </div>
-          {errorAddMessages.username && (
-            <div className="input-error">{errorAddMessages.username}</div>
-          )}
-        </div>
+        {error && (
+          <div className="input-error">Email ou mot de passe incorrect</div>
+        )}
         <div className="form__items">
           <div
             className={`form__items-container ${
-              errorAddMessages.email && "error"
+              errorMessages.email && "error"
             }`}
           >
             <label className="title-form" htmlFor="email">
               Email
             </label>
             <input
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleInput}
               type="email"
               name="email"
-              value={email}
+              value={values.email}
               id="email"
               placeholder="Ajouter un email"
             />
           </div>
-          {errorAddMessages.email && (
-            <div className="input-error">{errorAddMessages.email}</div>
+          {errorMessages.email && (
+            <div className="input-error">{errorMessages.email}</div>
           )}
         </div>
         <div className="form__items">
           <div
             className={`form__items-container ${
-              errorAddMessages.password && "error"
+              errorMessages.password && "error"
             }`}
           >
             <label className="title-form" htmlFor="password">
               Password
             </label>
             <input
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleInput}
               type="password"
               name="password"
-              value={password}
+              value={values.password}
               id="password"
               placeholder="Ajouter un mot de passe"
             />
           </div>
-          {errorAddMessages.password && (
-            <div className="input-error">{errorAddMessages.password}</div>
+          {errorMessages.password && (
+            <div className="input-error">{errorMessages.password}</div>
           )}
         </div>
         <input type="submit" value="Login" className="login-submit" />
