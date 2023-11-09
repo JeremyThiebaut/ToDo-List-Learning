@@ -14,7 +14,7 @@ interface Props {
 const RegisterPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLogged, error } = useSelector(
+  const { isLogged, registerError } = useSelector(
     (state: StateProps) => state.UserReducer
   );
   const [errorMessages, setErrorMessages] = React.useState<Props>({
@@ -72,6 +72,10 @@ const RegisterPage = () => {
       password: passwordError,
     });
 
+    if (usernameError || emailError || passwordError) {
+      return;
+    }
+
     dispatch(registerUser(...Object.values(values)));
   };
 
@@ -79,9 +83,11 @@ const RegisterPage = () => {
     <div className="register-page">
       <h2 className="register-title">Register</h2>
       <form className="register-form" onSubmit={handleSubmit}>
-        {/* {error && (
-          <div className="input-error">Email ou mot de passe incorrect</div>
-        )} */}
+        {registerError && (
+          <div className="input-error">
+            Un compte existe déjà avec cet email
+          </div>
+        )}
         <div className="form__items">
           <div
             className={`form__items-container ${

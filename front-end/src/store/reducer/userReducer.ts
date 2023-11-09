@@ -9,6 +9,8 @@ export interface UserProps {
   loading: boolean;
   isLogged: boolean;
   error: string;
+  loginError: string;
+  registerError: string;
 }
 
 const initialState: UserProps = {
@@ -16,6 +18,8 @@ const initialState: UserProps = {
   loading: false,
   isLogged: false,
   error: "",
+  registerError: "",
+  loginError: "",
 };
 
 const userSlice = createSlice({
@@ -29,11 +33,11 @@ const userSlice = createSlice({
       state.user = action.payload.data;
       state.loading = false;
       state.isLogged = true;
-      state.error = "";
+      state.loginError = "";
     },
     loginError: (state, action) => {
       state.user = [];
-      state.error = action.payload.message;
+      state.loginError = action.payload.message;
       state.loading = false;
     },
     loginAuthError: (state) => {
@@ -60,11 +64,11 @@ const userSlice = createSlice({
       state.user = action.payload.data;
       state.loading = false;
       state.isLogged = true;
-      state.error = "";
+      state.registerError = "";
     },
     registerError: (state, action) => {
       state.user = [];
-      state.error = action.payload.message;
+      state.registerError = action.payload.message;
       state.loading = false;
     },
   },

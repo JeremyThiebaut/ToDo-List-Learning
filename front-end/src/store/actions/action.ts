@@ -26,7 +26,10 @@ export const fetchUserLogged = () => {
       });
       const data = await response.json();
       if (data.statusCode === 404) {
+        dispatch(logoutSuccess());
         dispatch(loginAuthError(data));
+      } else if (data.statusCode === 401) {
+        dispatch(logoutSuccess());
       } else dispatch(loginSuccess(data));
     } catch (error) {
       dispatch(loginError(error));
@@ -52,6 +55,8 @@ export const fetchLogin = (email: string, password: string) => {
       });
       const data = await response.json();
       if (data.statusCode === 404) {
+        dispatch(loginError(data));
+      } else if (data.statusCode === 400) {
         dispatch(loginError(data));
       } else dispatch(loginSuccess(data));
     } catch (error) {
@@ -82,9 +87,13 @@ export const registerUser = (
         credentials: "include",
       });
       const data = await response.json();
-      if (data.statusCode === 404) {
+      if (data.statusCode === 400) {
         dispatch(registerError(data));
-      } else dispatch(registerSuccess(data));
+      } else if (data.statusCode === 404) {
+        dispatch(registerError(data));
+      } else {
+        dispatch(registerSuccess(data));
+      }
     } catch (error) {
       dispatch(registerError(error));
     }
@@ -94,7 +103,6 @@ export const registerUser = (
 export const fetchLogout = () => {
   return async (dispatch: Dispatch) => {
     dispatch(logout());
-
     try {
       const response = await fetch("http://localhost:3000/users/logout", {
         method: "GET",
