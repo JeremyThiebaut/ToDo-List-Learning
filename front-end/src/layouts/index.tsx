@@ -17,7 +17,9 @@ export default function Home() {
         </div>
         <div className="menu__right">
           <Language />
-          {isLogged && <div className="user__name">{user.username}</div>}
+          {isLogged && user?.username && (
+            <div className="user__name">{user.username}</div>
+          )}
           <UserMenu />
         </div>
       </div>
