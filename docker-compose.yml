@@ -22,30 +22,30 @@ services:
     networks:
       - app-network
 
-  # back-end:
-  # container_name: backendcontainer
-  # build: ./back-end
-  # image: nodeapp:v1
-  # volumes:
-  #   - c:\data/nodeapp:/code
-  # ports:
-  #   - "3000:3000"
-  # expose:
-  #   - "3000"
-  # environment:
-  # DB_HOST: ${MYSQL_HOST}
-  # DB_PORT: ${MYSQL_PORT}
-  # DB_USER: ${MYSQL_USER}
-  # DB_PASSWORD: ${MYSQL_PASSWORD}
-  # DB_DATABASE: ${MYSQL_DATABASE}
-  # DB_CONNECTION_LIMIT: ${MYSQL_CONNECTION_LIMIT}
-  # SERVICE_TAGS: ${SERVICE_TAGS}
-  # SERVICE_NAME: nodeappservice
-  # PORT: ${APP_PORT}
-  # depends_on:
-  #   - mysqldb
-  # networks:
-  #   - app-network
+  back-end:
+    container_name: backendcontainer
+    build: ./back-end
+    image: nodeapp:v1
+    volumes:
+      - ./back-end:/usr/src/app
+    ports:
+      - "3000:3000"
+    expose:
+      - "3000"
+    environment:
+      DB_HOST: ${MYSQL_HOST}
+      DB_PORT: ${MYSQL_PORT}
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+      DB_DATABASE: ${MYSQL_DATABASE}
+      DB_CONNECTION_LIMIT: ${MYSQL_CONNECTION_LIMIT}
+      SERVICE_TAGS: ${SERVICE_TAGS}
+      SERVICE_NAME: nodeappservice
+      PORT: ${APP_PORT}
+    depends_on:
+      - mysqldb
+    networks:
+      - app-network
 
   adminer:
     image: adminer
@@ -58,19 +58,19 @@ services:
     networks:
       - app-network
 
-  # frontend:
-  #   container_name: frontendcontainer
-  #   build: ./front-end
-  #   image: reactapp:v1
-  #   volumes:
-  #     - ./front-end:/usr/src/app
-  #     - /usr/src/app/node_modules
-  #   ports:
-  #     - "5173:5173"
-  #   expose:
-  #     - "5173"
-  #   networks:
-  #     - app-network
+  frontend:
+    container_name: frontendcontainer
+    build: ./front-end
+    image: reactapp:v1
+    volumes:
+      - ./front-end:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "5173:5173"
+    expose:
+      - "5173"
+    networks:
+      - app-network
 
 networks:
   app-network:
