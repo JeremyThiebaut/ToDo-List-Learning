@@ -14,56 +14,56 @@ Ceci est une application Todo construite avec :
 
 Elle vous permet de lister vos tâches très simplement.
 
-## Installation sans Docker:
+## Installation sans Docker
 
 Pour installer et exécuter cette application, suivez les étapes suivantes :
 
-1. Clonez le dépôt :
+1. **Clonez le dépôt :**
 
 ```bash
 git clone https://github.com/JeremyThiebaut/ToDo-List.git
 ```
 
-2. Installez les dépendances du front-end :
+2. **Installez les dépendances du front-end :**
 
 ```bash
 cd ./front-end
 npm install
 ```
 
-3. Lancez l'application front-end:
+3. **Lancez l'application front-end :**
 
 ```bash
 npm run dev
 ```
 
-4. Installez les dépendances du back-end :
+4. **Installez les dépendances du back-end :**
 
 ```bash
 cd ../back-end
 npm install
 ```
 
-5. Lancez l'application back-end:
+5. **Lancez l'application back-end :**
 
 ```bash
 npm run dev
 ```
 
-6. Variable d'environement :
+6. Variable d'environnement :
 
-Créer une copie du fichier `./back-end/.env.exemple` et renomez le en `.env`.
-Editez le pour qu'il correspondent a votre bdd (mysql).
+Créez une copie du fichier `./back-end/.env.example` et renommez-le en `.env.`
+Éditez-le pour qu'il corresponde à votre base de données (MySQL).
 
-7. Modele :
+7. Modèle de données :
 
-Copiez le modele de données qui se trouve dans le fichier :
+Copiez le modèle de données qui se trouve dans le fichier :
 
 ```bash
 cd ./back-end/init.sql
 ```
 
-et collez le dans votre mysql.
+et collez-le dans votre MySQL.
 
 exemple:
 
@@ -74,22 +74,22 @@ Enter password: "your password"
 !!! Past code here !!!
 ```
 
-## Installer avec Docker
+## Installation avec Docker
 
-1. Clonez le dépôt :
+1. **Clonez le dépôt :**
 
 ```bash
 git clone https://github.com/JeremyThiebaut/ToDo-List.git
 ```
 
-2. Variable d'environement :
+2. **Variables d'environnement :**
 
-- Créer une copie du fichier `./back-end/.env.exemple` et renomez le en `.env`.
-- Faite de meme avec docker `./.env.exemple` et renomez le en `.env`.
+- Créez une copie du fichier `./back-end/.env.example` et renommez-le en `.env.`
+- Faites de même avec le fichier Docker `./.env.example` et renommez-le en `.env`.
 
-3. Lancer l'application
+3. **Lancez l'application :**
 
-Depuis la racine de votre projet
+Depuis la racine de votre projet :
 
 ```bash
 docker compose up -d --build
