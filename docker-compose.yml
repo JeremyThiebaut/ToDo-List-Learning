@@ -42,6 +42,7 @@ services:
       PORT: ${APP_PORT}
     depends_on:
       - mysqldb
+    command: sh -c "npm install && npm run dev"
     networks:
       - app-network
 
@@ -67,6 +68,7 @@ services:
       - "5173:5173"
     expose:
       - "5173"
+    command: sh -c "npm install && npm run dev"
     networks:
       - app-network
 
